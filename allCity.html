@@ -1,0 +1,277 @@
+<div class="xw-container-mainbox clearfix">
+	<div class="xw-listMain-sourceAnaly a clearfix">
+		<span class="sourceAnaly-title-all">
+			<i class="sourceAnaly-title-icon"></i>
+			全市实时客流：<span class="sourceAnaly-title-num">1,529</span>人次
+		</span>
+		<span class="sourceAnaly-title-all today">
+			<i class="sourceAnaly-title-icon"></i>
+			今天截止当前全市总客流：<span class="sourceAnaly-title-num">23,529</span>人次
+		</span>
+	</div>
+	<div class="xw-listMain-sourceAnaly b clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					实时客流
+				</span>
+			</div>
+		</div>
+		<div class="listMain-sourceAnaly-contentBox" id="xw-listMain-sourceAnaly-content1"></div>
+	</div>
+	<div class="xw-listMain-sourceAnaly c clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					客源分析
+				</span>
+			</div>
+		</div>
+		<div class="listMain-sourceAnaly-contentBox" id="xw-listMain-sourceAnaly-content2"></div>
+	</div>
+	<div class="xw-listMain-sourceAnaly d clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					景区组合
+				</span>
+			</div>
+		</div>
+		<div class="listMain-sourceAnaly-contentBox" id="xw-listMain-sourceAnaly-content3">
+			<div class="listMain-sourceAnaly-group-left"></div>
+		</div>
+	</div>
+	<div class="xw-listMain-sourceAnaly e clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					游客属性
+				</span>
+			</div>
+		</div>
+		<div class="listMain-sourceAnaly-contentBox" id="xw-listMain-sourceAnaly-content4">
+			
+		</div>
+	</div>
+	<div class="xw-listMain-sourceAnaly f clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					热门景区
+				</span>
+			</div>
+			<div class="listMain-sourceAnaly-contentBox" id="xw-listMain-sourceAnaly-content5"></div>
+		</div>
+		<div class="xw-sourceAnaly-rightBox"></div>
+	</div>
+	
+</div>
+<script>
+	//右侧图片展示
+	var img_show={
+		data:['中山陵','夫子庙','栖霞山','玄武湖']
+	}
+	function img_showes(opt){
+		var $sourceAnaly_rightImg=$('<div class="xw-sourceAnaly-rightImg"></div>');
+		var $imagesValue=[1,2,3,4];
+		var $indexKey=['中山陵','夫子庙','玄武湖','栖霞山'];
+			for(var i=0;i<opt.data.length;i++){
+				var data=opt.data[i];
+				var $sourceAnaly_rightImg_list=$('<li class="sourceAnaly-rightImg-list"></li>');
+				var $img=$('<img src="img/sourceAnaly-rightImg'+$imagesValue[$indexKey.indexOf(data)]+'.png" class="img-responsive" style="width:100%;" />');
+				var $span=$('<span>'+data+'</span>');
+				$sourceAnaly_rightImg_list.append($img).append($span);
+				$sourceAnaly_rightImg.append($sourceAnaly_rightImg_list);
+			}
+			$('.xw-listMain-sourceAnaly.f .xw-sourceAnaly-rightBox').append($sourceAnaly_rightImg);
+	}
+	img_showes(img_show);
+	//实时客流
+	 var myChart = echarts.init(document.getElementById('xw-listMain-sourceAnaly-content1'));
+
+        // 指定图表的配置项和数据
+        var option = {
+			    title: {
+			        text: ''
+			    },
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'cross',
+			            label: {
+			                backgroundColor: '#6a7985'
+			            }
+			        }
+			    },
+			    legend: {
+			        data:[]
+			    },
+			    toolbox: {
+			        feature: {
+			            saveAsImage: {}
+			        }
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis : [
+			        {
+			        	name: '(时间)',
+			            type : 'category',
+			            axisTick : {show: false},
+			            splitLine: {     
+						  show: true,  
+						  lineStyle:{
+						        color:"#e4e4e4",    
+						        type:"dashed"
+						  }
+						},
+			            boundaryGap : false,
+			            data : ['8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00'],
+			        	
+			        }
+			        
+			        
+			    ],
+			    yAxis : [
+			    	{
+			            name: '游客量\n(人次)',
+			            type: 'value',
+			            max: 2000,
+			            axisTick : {show: false},
+			            splitLine: {     
+						  show: true,  
+						  lineStyle:{
+						        color:"#e4e4e4",    
+						        type:"dashed"
+						  }
+						}
+			        }
+			        
+			    ],
+			    
+			    series : [
+			        {
+			            name:'',
+			            type:'line',
+			            stack: '总量',
+		             	smooth: true,
+			            label: {
+			                normal: {
+			                    show: true,
+			                    position: 'top'
+			                }
+			            },
+			            itemStyle: {normal: {
+			            	color:'#2c9eff'
+			            }},
+			            areaStyle: {normal: {
+			            	color:'rgba(44,158,255,0.3)'
+			            }},
+			            lineStyle: {normal: {
+			            	color:'#88c8ff'
+			            }},
+			            data:[820, 932, 901, 934, 1290, 1330, 1320,400,1000]
+			        }
+			    ]
+			};
+
+        // 使用刚指定的配置项和数据显示图表。
+        window.onresize=myChart.resize;
+        myChart.setOption(option);
+        
+        //景区组合
+        
+        function spot_group_list(opt){
+        	var $spot_group=$('<ul class="spot-group-list"></ul>');
+        	for(var i=0;i<opt.data.length;i+=3){
+        		var $li=$('<li></li>');
+        		var $data1=opt.data[i];
+        		var $data2=opt.data[i+1];
+        		var $data3=opt.data[i+2];
+        		var a=$data1.length;
+        		var b=$data2.length;
+        		var c=$data3.length;
+        		var $list_box1=$('<div class="groups-list-box1"><span>'+$data1+'</span></div>');
+        		var $list_box2=$('<div class="groups-list-box2"><span>'+$data2+'</span></div>');
+        		var $list_box3=$('<div class="groups-list-box3"><span>'+$data3+'</span></div>');
+        		if(a > 5 || b > 5 || c > 5) {
+						var maxV = getMax(a,b,c);
+						function getMax(a,b,c){
+							return a>b?(a>c?a:c):(b>c?b:c);
+						}
+						$list_box2.css('margin-left','0rem');
+						$list_box3.css('margin-left','0rem');
+						if(maxV == a){
+							$list_box1.css({'background-image':'url(img/combaina-name-iconBox3.png)','width':'1.5rem'});
+							$list_box2.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+							$list_box3.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+						}else if(maxV == b){
+							$list_box2.css({'background-image':'url(img/combaina-name-iconBox3.png)','width':'1.5rem'});
+							$list_box1.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+							$list_box3.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+						}else{
+							$list_box3.css({'background-image':'url(img/combaina-name-iconBox3.png)','width':'1.5rem'});
+							$list_box1.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+							$list_box2.css({'background-image':'url(img/combaina-name-iconBox2.png)','width':'0.81rem'});
+						}
+				}
+        		$li.append($list_box1).append($list_box2).append($list_box3);
+        		$spot_group.append($li);
+        	}
+        	$('#xw-listMain-sourceAnaly-content3').append($spot_group);
+        }
+        var spot_group_lists={
+        	data:['雨花台','钟山风景区','夫子庙','中山陵景区','南京大屠杀遇难同胞纪念馆','雨花台','夫子庙','钟山风景区','中山陵','大报恩寺','南京大屠杀遇难同胞纪念馆','夫子庙','钟山风景区','中山陵','大报恩寺','钟山风景区','中山陵','大报恩寺','钟山风景区','中山陵','大报恩寺','钟山风景区','中山陵','大报恩寺']
+        }
+        spot_group_list(spot_group_lists);
+        
+        //男女、年龄占比
+        var proporty_sacle={
+        	people:[400,60],
+        	data:[5,10,20,30,5,10,15,5]
+        }
+        function proportySacle(opt){
+        	var $sex_peopleScale=$('<div class="sex-peopleScale"></div>');
+        	var peoIndex=['men','women'];
+        	var sexIndex=['男','女'];
+        	var attrIndex=['0-18岁','19-30岁','31-40岁','41-50岁','51-60岁','61-70岁','71-80岁','80岁以上'];
+        	var colorIndex=['0189ff','da70d5','ff7f50','6395ec','1db7b9','ee3d86','ba56d4','ce5c5b'];
+        	var sumSex=0;
+        	var sumData=0;
+        	for(var  i=0;i<opt.people.length;i++){
+        		sumSex +=parseInt(opt.people[i]);
+        	}
+        	for(var i=0;i<opt.data.length;i++){
+        		sumData+=parseInt(opt.data[i]);
+        	}
+        		console.log(sumSex)
+        	for(var i=0;i<opt.people.length;i++){
+        		var $peopleScale=$('<div class="peopleScale-'+peoIndex[i]+'"><div>');
+        		var $title_show=$('<p class="title-show"><i></i>'+sexIndex[i]+'性</p>');
+				var $span=$('<span>'+(opt.people[i]/sumSex).toFixed(2)*100+'%</span>');
+				$peopleScale.width((opt.people[i]/sumSex).toFixed(2)*100+'%');
+				$peopleScale.append($title_show).append($span);
+				$sex_peopleScale.append($peopleScale);
+        	}
+        	var $ageList=$('<div class="age-lists"></div>');
+			var $age_lists_scale=$('<div class="age-lists-scale"></div>');
+			for(var i=0;i<opt.data.length;i++){
+				var $span2=$('<span><i style="background-color:#'+colorIndex[i]+'"></i>'+attrIndex[i]+'</span>');
+				$ageList.append($span2);
+				var $span1=$('<span  style="background-color:#'+colorIndex[i]+'">'+(opt.data[i]/sumData).toFixed(2)*100+'%</span>');
+				$span1.width((opt.data[i]/sumData).toFixed(2)*100+'%');
+				$age_lists_scale.append($span1);
+			}
+			$('#xw-listMain-sourceAnaly-content4').append($sex_peopleScale).append($ageList).append($age_lists_scale);
+        }
+        proportySacle(proporty_sacle);
+</script>

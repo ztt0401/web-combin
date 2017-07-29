@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>南京旅游登录</title>
+		<link rel="stylesheet" href="css/nanjing-wisdom.css" />
+	</head>
+	<style>
+		#drag{ 
+    position: relative;
+    width: 358px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+    border-radius: 40px;
+}
+#drag .handler{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 62px;
+	height: 47px;
+    cursor: move;
+}
+.handler_bg{
+	width: 62px;
+	height: 47px;
+	background-color: #b0bed4;
+	border-radius: 40px;
+    background-image:url(img/login-validate.png);
+    background-repeat:no-repeat ;
+    background-size:cover ;
+}
+.handler_ok_bg{
+    width: 62px;
+	height: 47px;
+    background-image:url(img/login-validate.png);
+    background-repeat:no-repeat ;
+    background-size:cover ;
+    display: none;
+}
+#drag .drag_bg{
+    background-color: #7ac23c;
+    height: 47px;
+    width: 0px;
+    border-radius: 40px;
+}
+#drag .drag_text{
+    position: absolute;
+    top: 0px;
+    width: 358px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -o-user-select:none;
+    -ms-user-select:none; 
+}
+	</style>
+	<body>
+		<script>
+		(function(doc,win){
+			var doc = document; 
+			var docEl = doc.documentElement,
+			    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+			    recalc = function() {
+			        var container = document.querySelector(".xw-container");
+			        var clientWidth = docEl.clientWidth;
+			        if (!clientWidth) return;
+			        docEl.style.fontSize = clientWidth / 19.2 + 'px';
+			    };
+			window.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document,window);
+		</script>
+		<div class="xw-container">
+			<form class="login-lists" action="index.html" type="post">
+				
+				<li>
+					<i class="login-icon1"></i>
+					<input type="" value=""/>
+				</li>
+				<li>
+					<i class="login-icon2"></i>
+					<input type="password" value="" placeholder="******"/>
+				</li>
+				<li>
+					<div id="drag"></div>
+				</li>
+				<li>登录</li>
+				<li>注册</li>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.3.2.1.js" ></script>
+	<script type="text/javascript" src="js/drag-slider.js" ></script>
+	<script type="text/javascript">
+		$('#drag').drag();
+	</script>
+</html>

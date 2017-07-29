@@ -1,0 +1,102 @@
+<div class="xw-container-listMain allCity">
+	<div class="xw-combination-ul">
+		<ul class="combination pull-right">
+			<li>今天</li>
+			<li>昨天</li>
+			<li>最近七天</li>
+			<li>时间范围</li>
+			<li class="data">
+				<input type="date"/>到<input type="date" />
+			</li>
+			<li class="blue">查询</li>
+			<li class="blue">同比</li>
+			<li class="blue">环比</li>
+		</ul>
+	</div>
+	<div class="xw-hiddenScreen-box">
+		<div class="xw-listMain-box sourceAnaly spotAnaly">
+			<div class="listMain-sourceAnaly-innerroad">
+				<div class="xw-listMain-title">
+					<span class="listMain-titleText"><i class="listMain-titleIcon"></i>&&景区境内客源分析</span>
+				</div>
+				<div class="xw-listMain-content">
+					<div class="selected-echarts-show">
+						<div class="radio-box city-selected">
+							<input type="radio" name="city" id="" value="省内" />省内
+							<input type="radio" name="city" id="" value="省外" />省外
+						</div>
+						<div class="radio-box exclude-city">
+							<input type="radio" name="exclude" id="" value="不含南京" />不含南京
+							<input type="radio" name="exclude" id="" value="不含江苏" />不含江苏
+						</div>
+						<div class="radio-box option-seclect">
+							<select name="">
+								<option value=""></option>
+							</select>							
+						</div>
+					</div>
+				</div>
+				<div class="xw-listMain-content">
+					<div class="listMain-visitSpots-boxTitle">
+						<li class="table-title-left">游客量分析</li>
+						<li class="table-title-right pull-right">下载</li>
+					</div>
+				</div>
+			</div>
+			<div class="listMain-sourceAnaly-abroad">
+				<div class="xw-listMain-title">
+					<span class="listMain-titleText"><i class="listMain-titleIcon"></i>&&景区境外客源分析</span>
+				</div>
+				<div class="xw-listMain-content">
+					
+				</div>
+				<div class="xw-listMain-content">
+					<div class="listMain-visitSpots-boxTitle">
+						<li class="table-title-left">游客量分析</li>
+						<li class="table-title-right pull-right">下载</li>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="spotshow-right ">
+		<div class="xw-listMain-sourceAnaly f clearfix">
+			<img src="img/sourceAnaly-rightImg1.png" class="img-responsive image-show" />
+			<p class="listMain-sourceAnaly-textp"><span class="listMain-sourceAnaly-text-name1">栖霞区</span><img src="img/xw-arrow.png" class="img-responsive"><span class="listMain-sourceAnaly-text-name2">栖霞山</span></p>
+		</div>
+		<div class="xw-listMain-sourceAnaly g clearfix">
+			<div class="xw-sourceAnaly-title">
+				<div class="listMain-sourceAnaly-title">
+					<span class="sourceAnaly-title-all">
+						<i class="sourceAnaly-title-icon"></i>
+						选择景区
+					</span>
+				</div>
+			</div>
+			<div class="xw-sourceAnaly-rightBox">
+				<div class="xw-sourceAnaly-rightName spot-right-changeName" id="sourceAnaly-rightName">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/nanjing-wisdom.js" ></script>
+<script>
+	var Accordion4 = function(el) {
+				this.el = el || {};
+				var links = this.el.find('.link');
+				links.on('click', {el: this.el}, this.dropdown)
+			}
+			Accordion4.prototype.dropdown = function(e) {
+				var $el = e.data.el;
+				var	$this = $(this);
+				var	$next = $this.next();
+				$next.slideToggle();
+				$this.parent().toggleClass('open');
+				if (!e.data.multiple) {
+					$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+				};
+			}	
+			var accordion = new Accordion4($('.spot-right-changeName'));
+</script>

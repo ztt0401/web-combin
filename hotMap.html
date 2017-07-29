@@ -1,0 +1,20 @@
+<div class="xw-container-mainbox">
+	<div class="xw-content-map">
+		<div class="rightChange">
+			<span class="hot">热力图</span>
+			<span class="comfort">舒适度</span>
+		</div>
+		<div class="comfortList">
+			<div class="comfortTitle">舒适度列表 <i class="comfortList-down"></i></div>
+			<div id="comfortRank"></div>
+		</div>
+	</div>
+</div>
+<script src="js/comfortPage.js"></script>
+<script>
+	$('.xw-content-map .rightChange .comfort').click(function(){
+    	$('#xw-content-box').load('comfortPage.html');
+    	$('#accordion .accordion-firstLi:eq(0) .submenu li:eq(1)').addClass('active').siblings().removeClass('active');
+    })
+	
+</script>

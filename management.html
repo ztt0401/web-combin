@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>后台配置</title>
+		<script>
+		(function(doc,win){
+			var doc = document; 
+			var docEl = doc.documentElement,
+			    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+			    recalc = function() {
+			        var container = document.querySelector(".container-fluid");
+			        var clientWidth = docEl.clientWidth;
+			        if (!clientWidth) return;
+			        docEl.style.fontSize = clientWidth / 19.2 + 'px';
+			    };
+			window.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document,window);
+		</script>
+		<link rel="stylesheet" href="css/nanjing-wisdom.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container-fluid managementPages">
+			<header class="header">
+				<ul class="xw-header-rightList">
+					<li>欢迎&&&</li>
+					<li class="management" onclick="window.location.href='management.html'">配置管理</li>
+					<li>退&nbsp;&nbsp;出</li>
+				</ul>
+			</header>
+			<div class="xw-main-content col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="xw-content-tree col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<ul id="management-menu" class="accordion"></ul>
+				</div>
+				<div id="xw-content-box" class="xw-content-box col-xs-10 col-sm-10 col-md-10 col-lg-10">
+				</div>
+				
+			</div>
+		</div>
+		<footer>南京市旅游委员会版权所有</footer>
+	</body>
+	<script type="text/javascript" src="js/jquery.3.2.1.js" ></script>
+	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="js/management.js" ></script>
+	<script>
+		$(function() {
+			//左侧菜单
+			var management_menus={
+				data:[
+					{
+						parentName:{name:'首页',parentURL:'managementHomePage'}
+					},
+					{
+						parentName:{name:'区域属性配置',parentURL:'managementAttr'}
+					},
+					{
+						parentName:{name:'游客判定规则',parentURL:'managementDecisionRule'}
+						
+					},
+					{
+						parentName:{name:'法定节假日配置',parentURL:'officialHoliday'}
+					},
+					{
+						parentName:{name:'区域系数配置',parentURL:'managementCoefficient'}
+					},
+					{
+						parentName:{name:'数据优化',parentURL:'managementData'}
+					},
+					{
+						parentName:'用户管理',
+						childName:[{'name':'用户管理子页面','pageURL':'analysisReport'}]
+					},
+					{
+						parentName:{name:'基站信息管理',parentURL:'managementInformation'}
+					},
+					{
+						parentName:{name:'异常日志',parentURL:'managementLoggingException'}
+					},
+					{
+						parentName:'旅游资源管理',
+						childName:[{'name':'旅游资源管理子页面','pageURL':'analysisReport'}]
+					},
+					{
+						parentName:{name:'报告统计',parentURL:'managementReport'}
+					}
+				]
+			}
+			$('#management-menu').management_menu(management_menus);
+			
+			//左侧菜单
+			var Accordion = function(el) {
+				this.el = el || {};
+				var links = this.el.find('.link .fa');
+				links.on('click', {el: this.el}, this.dropdown)
+			}
+			Accordion.prototype.dropdown = function(e) {
+				var $el = e.data.el;
+				var	$this = $(this).parent('.link');
+				var	$next = $this.next();
+				
+				$next.slideToggle();
+				$this.parent().toggleClass('open');
+				if (!e.data.multiple) {
+					$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+				};
+			}	
+		
+			var accordion = new Accordion($('#management-menu'));
+
+			$('.accordion .accordion-firstLi .link').on('click',function () {
+               $(this).next('ul').find('li:eq(0)').trigger('click');
+            })
+
+			//更换中间内容
+			$('.container-fluid .xw-main-content .xw-content-tree ').delegate('.link','click',function(){
+				var url=$(this).find('a').attr('href');
+				$(this).css('background','#dedede').parents('li').siblings().find('.link').css('background','#fff')
+				$('#xw-content-box').load(url);
+				return false;
+			});
+            
+		});
+	</script>
+</html>

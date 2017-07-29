@@ -1,0 +1,132 @@
+<div class="xw-container-mainbox clearfix allCity">
+	<div class="xw-listMain-sourceAnaly a clearfix">
+		<span class="sourceAnaly-title-all">
+			<i class="sourceAnaly-title-icon"></i>
+			景区实时客流：<span class="sourceAnaly-title-num">1,529</span>人次
+		</span>
+		<span class="sourceAnaly-title-all today">
+			<i class="sourceAnaly-title-icon"></i>
+			今天截止当前景区总客流：<span class="sourceAnaly-title-num">23,529</span>人次
+		</span>
+	</div>
+	<div class="xw-listMain-sourceAnaly b clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					实时客流
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="xw-listMain-sourceAnaly c clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					客源分析
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="xw-listMain-sourceAnaly d clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					景区组合
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="xw-listMain-sourceAnaly e clearfix">
+		<div class="xw-sourceAnaly-title">
+			<div class="listMain-sourceAnaly-title">
+				<span class="sourceAnaly-title-all">
+					<i class="sourceAnaly-title-icon"></i>
+					游客属性
+				</span>
+			</div>
+		</div>
+	</div>
+	<!--<div class="xw-listMain-sourceAnaly f clearfix">-->
+	<!--</div>-->
+	<!--<div class="xw-listMain-sourceAnaly g clearfix">-->
+		<!--<div class="xw-sourceAnaly-title">-->
+			<!--<div class="listMain-sourceAnaly-title">-->
+				<!--<span class="sourceAnaly-title-all">-->
+					<!--<i class="sourceAnaly-title-icon"></i>-->
+					<!--选择景区-->
+				<!--</span>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="xw-sourceAnaly-rightBox">-->
+			<!--<div class="xw-sourceAnaly-rightName" id="sourceAnaly-rightName">-->
+				<!---->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	
+</div>
+<script>
+	//景区名字列表
+	function spotName_list(opt){
+		var $f_img=$('<img src="img/sourceAnaly-rightImg1.png" class="img-responsive image-show" />');
+		var $f_sourceAnaly_textp=$('<p class="listMain-sourceAnaly-textp"><span class="listMain-sourceAnaly-text-name1">栖霞区</span><img src="img/xw-arrow.png" class="img-responsive"><span class="listMain-sourceAnaly-text-name2">栖霞山</span></p>');
+		$('.xw-listMain-sourceAnaly.f ').append($f_img).append($f_sourceAnaly_textp);
+		for(var i=0;i<opt.result.length;i++){
+			var $li=$('<li class="accordion-allName">');
+			var $name=$('<div class="link">'+opt.result[i].name+'</div>');
+			var $submenu=$('<ul class="submenu">');
+			for(var j=0;j<data.area.length;j++){
+				var $chlidLi=$('<li name="'+data.area[j].src+'">'+data.area[j].secnicname+'</li>');
+				$submenu.append($chlidLi);
+			}
+			$li.append($name).append($submenu);
+			$('#sourceAnaly-rightName').append($li);
+		}
+	}
+			var spotName_lists={
+				data:[
+					{
+						name:'秦淮区',
+						area:[{secnicname:'秦淮河',src:'img/sourceAnaly-rightImg2.png'}]
+					},
+					{
+						name:'栖霞区',
+						area:[{secnicname:'栖霞山',src:'img/sourceAnaly-rightImg3.png'}]
+					},{
+						name:'栖霞区',
+						area:[{secnicname:'栖霞山',src:'img/sourceAnaly-rightImg3.png'}]
+					}
+				]
+			}
+			var Accordion3 = function(el) {
+				this.el = el || {};
+				var links = this.el.find('.link');
+				links.on('click', {el: this.el}, this.dropdown)
+			}
+			Accordion3.prototype.dropdown = function(e) {
+				var $el = e.data.el;
+				var	$this = $(this);
+				var	$next = $this.next();
+				$next.slideToggle();
+				$this.parent().toggleClass('open');
+				if (!e.data.multiple) {
+					$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+				};
+			}	
+		
+			var accordion = new Accordion3($('#sourceAnaly-rightName'));
+			$('#sourceAnaly-rightName .accordion-allName .submenu').delegate('li','click',function(){
+				$(this).addClass('Clickactive').siblings().removeClass('Clickactive');
+				$(this).parents('.accordion-allName').siblings().find('.submenu li').removeClass('Clickactive');
+				var spotName=$(this).parent().siblings('.link').text();
+				var thisName=$(this).text();
+				var thisImg=$(this).attr('name');
+				console.log(thisImg);
+				$('.xw-listMain-sourceAnaly.f .listMain-sourceAnaly-text-name1').html(spotName);
+				$('.xw-listMain-sourceAnaly.f .listMain-sourceAnaly-text-name2').html(thisName);
+				$('.xw-listMain-sourceAnaly.f .image-show').attr('src',thisImg)
+			})
+</script>
